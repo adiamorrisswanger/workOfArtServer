@@ -8,4 +8,6 @@ aboutRouter.route('/')
 .all((req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
-})
+});
+
+module.exports = aboutRouter;
