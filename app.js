@@ -6,7 +6,7 @@ var logger = require('morgan');
 
 const mongoose = require('mongoose');
 
-const url = 'mongodb-pp://localhost:27017/';
+const url = 'mongodb://localhost:27017/workofart';
 const connect = mongoose.connect(url, {
   useCreateIndex: true,
   useFindAndModify: false,
@@ -20,9 +20,11 @@ connect.then(() => console.log('Connected correctly to the server'),
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const aboutRouter = require('./routes/aboutRouter');
+//const artistportalRouter = require('./routes/artistportalRouter');
+//const aboutRouter = require('./routes/aboutRouter');
 const eventsRouter = require('./routes/eventsRouter');
-const contactRtouer = require('./routes/contactRouter');
+const contactRouter = require('./routes/contactRouter');
+const unitRouter = require('./routes/unitRouter');
 
 var app = express();
 
@@ -38,6 +40,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+//app.use('/artistportal', artistportalRouter);
+app.use('/units', unitRouter);
+//app.use('/about', aboutRouter);
+app.use('/events', eventsRouter);
+app.use('/contact', contactRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
