@@ -1,47 +1,20 @@
 const express = require('express');
 const Unit = require('../models/unit');
+const authenticate = require('../authenticate');
 
-const artistportalRouter = express.Router();
+const unitsRouter = express.Router();
 
-artistportalRouter.route('/')
+unitsRouter.route('/')
 .get((req, res, next) => {
    Unit.find()
-   .then(units => {
+   .then(unit => {
        res.statusCode = 200;
        res.setHeader('Content-Type', 'application/json');
-       res.json(units);
+       res.json(unit);
    })
    .catch(err => next(err));
 })
-.post((req, res, next) => {
-    res.statusCode = 403;
-    res.end('POST operation not supported on /artistportal')
-})
-.put((req, res) => {
-    res.statusCode = 403;
-    res.end('PUT operation not supported on /artistportal');
-})
-.delete((req, res, next) => {
-    Unit.deleteMany()
-    .then(response => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(response);
-    })
-    .catch(err => next(err));
-});
-
-artistportalRouter.route('/:unitId')
-.get((req, res, next) => {
-    Unit.findById(req.params.unitId)
-    .then(unit => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(unit);
-    })
-    .catch(err => next(err));
-})
-.post((req, res, next) => {
+.post(authenticate.verifyUser, (req, res, next) => {
     Unit.create(req.body)
     .then(unit => {
         console.log('Unit created', unit);
@@ -51,7 +24,35 @@ artistportalRouter.route('/:unitId')
     })
     .catch(err => next(err));
 })
-.put((req, res) => {
+.put(authenticate.verifyUser, (req, res) => {
+    res.statusCode = 403;
+    res.end('PUT operation not supported on /artistportal');
+})
+.delete(authenticate.verifyUser, (req, res, next) => {
+    Unit.deleteMany()
+    .then(response => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(response);
+    })
+    .catch(err => next(err));
+});
+
+unitsRouter.route('/:unitId')
+.get((req, res, next) => {
+    Unit.findById(req.params.unitId)
+    .then(unit => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(unit);
+    })
+    .catch(err => next(err));
+})
+.post(authenticate.verifyUser, (req, res, next) => {
+    res.statusCode = 403;
+    res.end('POST operation not supported on /artistportal')
+})
+.put(authenticate.verifyUser, (req, res) => {
     Unit.findByIdAndUpdate(req.params.unitId, {
         $set: req.body
     }, { new: true})
@@ -63,7 +64,7 @@ artistportalRouter.route('/:unitId')
     }) 
     .catch(err => next(err))
 })
-.delete((req, res) => {
+.delete(authenticate.verifyUser, (req, res) => {
     Unit.findByIdAndDelete(req.params.unitId)
     .then(response => {
         res.statusCode = 200;
@@ -73,7 +74,7 @@ artistportalRouter.route('/:unitId')
     .catch(err => next(err));
 });
 
-artistportalRouter.route('/:userId')
+/* unitsRouter.route('/:userId')
 .get((req, res, next) => {
     User.findById()
     .then(user => {
@@ -107,9 +108,9 @@ artistportalRouter.route('/:userId')
          res.json(response);
      })
      .catch(err => next(err));
- });
+ }); */
 
- artistportalRouter.route('/:userId/:unitId')
+ /* artistportalRouter.route('/:userId/:unitId')
  .get((req, res, next) => {
     User.findById()
     .then(user => {
@@ -130,5 +131,6 @@ artistportalRouter.route('/:userId')
  .delete((req, res) => {
     res.statusCode = 403;
    res.end('DELETE operation not supported on /artisportal/:userId/:unitId')
- });
-module.exports = artistportalRouter;
+ }); */
+
+module.exports = unitsRouter;

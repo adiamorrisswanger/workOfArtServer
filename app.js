@@ -3,10 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const passport = require('passport');
+const authenticate = require('./authenticate');
+const config = require('./config');
 
 const mongoose = require('mongoose');
 
-const url = 'mongodb-pp://localhost:27017/';
+const url = config.mongoUrl;
 const connect = mongoose.connect(url, {
   useCreateIndex: true,
   useFindAndModify: false,
@@ -23,6 +26,7 @@ var usersRouter = require('./routes/users');
 const aboutRouter = require('./routes/aboutRouter');
 const eventsRouter = require('./routes/eventsRouter');
 const contactRouter = require('./routes/contactRouter');
+const unitsRouter = require('./routes/unitsRouter');
 
 var app = express();
 
@@ -33,14 +37,19 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(cookieParser());
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/units', unitsRouter);
 app.use('/aboutRouter', aboutRouter);
 app.use('/eventsRouter', eventsRouter);
 app.use('/contactRouter', contactRouter);
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
