@@ -27,6 +27,7 @@ const aboutRouter = require('./routes/aboutRouter');
 const eventsRouter = require('./routes/eventsRouter');
 const contactRouter = require('./routes/contactRouter');
 const unitsRouter = require('./routes/unitsRouter');
+const uploadRouter = require('./routes/uploadRouter');
 
 var app = express();
 
@@ -48,6 +49,7 @@ app.use('/units', unitsRouter);
 app.use('/aboutRouter', aboutRouter);
 app.use('/eventsRouter', eventsRouter);
 app.use('/contactRouter', contactRouter);
+app.use('/uploadRouter', uploadRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
