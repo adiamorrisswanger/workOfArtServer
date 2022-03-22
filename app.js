@@ -27,6 +27,7 @@ const aboutRouter = require('./routes/aboutRouter');
 const eventsRouter = require('./routes/eventsRouter');
 const contactRouter = require('./routes/contactRouter');
 const unitsRouter = require('./routes/unitsRouter');
+const uploadRouter = require('./routes/uploadRouter');
 
 var app = express();
 
@@ -54,9 +55,16 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/units', unitsRouter);
+<<<<<<< HEAD
 app.use('/about', aboutRouter);
 app.use('/events', eventsRouter);
 app.use('/contact', contactRouter);
+=======
+app.use('/aboutRouter', aboutRouter);
+app.use('/eventsRouter', eventsRouter);
+app.use('/contactRouter', contactRouter);
+app.use('/uploadRouter', uploadRouter);
+>>>>>>> 0ae1af88fe4c53e5cf1811033bdb1340a4a0b86e
 
 app.use(express.static(path.join(__dirname, 'public')));
 
