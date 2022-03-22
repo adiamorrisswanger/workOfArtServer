@@ -12,14 +12,19 @@ const contactSchema = new Schema ({
         required: true,
         unique: true
     },
-    description: {
+    email: {
         type: String,
         required: true,
         unique: true
     },
-    url: {
-        type: String,
+    tel: {
+        type: Number,
         required: true,
+        unique: true
+    },
+    message: {
+        type: String,
+        required: false,
         unique: true
     }
 });
