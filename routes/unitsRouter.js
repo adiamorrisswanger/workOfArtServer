@@ -1,20 +1,21 @@
 const express = require('express');
 const Unit = require('../models/unit');
 const authenticate = require('../authenticate');
-
 const unitsRouter = express.Router();
+const cors = require('./cors'); 
 
 unitsRouter.route('/')
-.get((req, res, next) => {
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.get(cors.cors, (req, res, next) => {
    Unit.find()
-   .then(unit => {
+   .then(units => {
        res.statusCode = 200;
        res.setHeader('Content-Type', 'application/json');
-       res.json(unit);
+       res.json(units);
    })
    .catch(err => next(err));
 })
-.post(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+.post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     Unit.create(req.body)
     .then(unit => {
         console.log('Unit created', unit);
@@ -24,11 +25,11 @@ unitsRouter.route('/')
     })
     .catch(err => next(err));
 })
-.put(authenticate.verifyUser, authenticate.verifyAdmin, (req, res) => {
+.put(cors.corsWithOptions, authenticate.verifyUser, (req, res) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /artistportal');
 })
-.delete(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+.delete(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     Unit.deleteMany()
     .then(response => {
         res.statusCode = 200;
@@ -39,7 +40,8 @@ unitsRouter.route('/')
 });
 
 unitsRouter.route('/:unitId')
-.get((req, res, next) => {
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.get(cors.cors, (req, res, next) => {
     Unit.findById(req.params.unitId)
     .then(unit => {
         res.statusCode = 200;
@@ -48,11 +50,11 @@ unitsRouter.route('/:unitId')
     })
     .catch(err => next(err));
 })
-.post(authenticate.verifyUser, (req, res, next) => {
+.post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     res.statusCode = 403;
-    res.end('POST operation not supported on /artistportal')
+    res.end('POST operation not supported on /units/:unitId')
 })
-.put(authenticate.verifyUser, (req, res) => {
+.put(cors.corsWithOptions, authenticate.verifyUser, (req, res) => {
     Unit.findByIdAndUpdate(req.params.unitId, {
         $set: req.body
     }, { new: true})
@@ -64,7 +66,7 @@ unitsRouter.route('/:unitId')
     }) 
     .catch(err => next(err))
 })
-.delete(authenticate.verifyUser, (req, res) => {
+.delete(cors.corsWithOptions, authenticate.verifyUser, (req, res) => {
     Unit.findByIdAndDelete(req.params.unitId)
     .then(response => {
         res.statusCode = 200;
@@ -108,8 +110,8 @@ unitsRouter.route('/:unitId')
          res.json(response);
      })
      .catch(err => next(err));
- }); */
-
+ }); 
+ */
  /* artistportalRouter.route('/:userId/:unitId')
  .get((req, res, next) => {
     User.findById()
@@ -131,6 +133,6 @@ unitsRouter.route('/:unitId')
  .delete((req, res) => {
     res.statusCode = 403;
    res.end('DELETE operation not supported on /artisportal/:userId/:unitId')
- }); */
+ });*/
 
 module.exports = unitsRouter;

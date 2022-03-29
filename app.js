@@ -1,11 +1,18 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-//var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('passport');
-const authenticate = require('./authenticate');
 const config = require('./config');
+
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+const aboutRouter = require('./routes/aboutRouter');
+const eventsRouter = require('./routes/eventsRouter');
+const contactRouter = require('./routes/contactRouter');
+const unitsRouter = require('./routes/unitsRouter');
+//const uploadRouter = require('./routes/uploadRouter');
+
 
 const mongoose = require('mongoose');
 
@@ -21,13 +28,6 @@ connect.then(() => console.log('Connected correctly to the server'),
   err => console.log(err)
 );
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-const aboutRouter = require('./routes/aboutRouter');
-const eventsRouter = require('./routes/eventsRouter');
-const contactRouter = require('./routes/contactRouter');
-const unitsRouter = require('./routes/unitsRouter');
-const uploadRouter = require('./routes/uploadRouter');
 
 var app = express();
 
@@ -47,26 +47,21 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-//app.use(cookieParser());
 
 app.use(passport.initialize());
-app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/units', unitsRouter);
-<<<<<<< HEAD
 app.use('/about', aboutRouter);
 app.use('/events', eventsRouter);
 app.use('/contact', contactRouter);
-=======
-app.use('/aboutRouter', aboutRouter);
-app.use('/eventsRouter', eventsRouter);
-app.use('/contactRouter', contactRouter);
-app.use('/uploadRouter', uploadRouter);
->>>>>>> 0ae1af88fe4c53e5cf1811033bdb1340a4a0b86e
+//app.use('/imageUpload', uploadRouter);
 
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
