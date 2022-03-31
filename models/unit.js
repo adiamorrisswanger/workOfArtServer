@@ -2,31 +2,32 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const unitSchema = new Schema({
-    title: {
+    id: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    name: {
         type: String,
         required: true,
         unique: true
+    },
+    image: {
+        data: Buffer,
+        type: String,
     },
     description: {
         type: String,
         required: true,
         unique: true
     },
-    unitNumber: {
-        type: Number,
-        required: true,
-        unique: true
-    },
-    url: {
+    featured: false
+    /* url: {
         type: String,
         required: false,
         unique: true
-    },
-   /*  image: {
-        data: Buffer,
-        type: String,
     } */
-
+    
 }, {
     timestamps: true
 });
