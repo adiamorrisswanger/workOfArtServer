@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const eventSchema = new Schema ({
-    tite: {
+    
+    name: {
         type: String,
         required: true,
         unique: true
@@ -12,12 +13,13 @@ const eventSchema = new Schema ({
         required: true,
         unique: true
     },
+    featured: false,
     description: {
         type: String,
         required: true,
         unique: true
     },
-    url: {
+    link: {
         type: String,
         required: true,
         unique: true
