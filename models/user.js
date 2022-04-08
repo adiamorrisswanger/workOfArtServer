@@ -6,26 +6,31 @@ const userSchema = new Schema({
     firstName: {
         type: String,
         default: '',
-        required: false
     },
     lastName: {
         type: String,
         default: '',
-        required: false
+    },
+    username: {
+        type: String,
+        unique: true,
+        default: '',
+    },
+    password: {
+        type: String,
+        select: false,
+        default: '',
     },
     emailAddress: {
         type: String,
         default: '',
-        required: false
     },
     organization: {
         type: String,
         default: '',
-        required: false
     },
     referred: {
         type: String,
-        required: false
     },
     admin: {
         type: Boolean,

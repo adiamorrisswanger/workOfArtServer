@@ -2,31 +2,27 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const contactSchema = new Schema ({
-    firstname: {
+    firstName: {
         type: String,
-        required: true,
-        unique: true
     },
-    lastname: {
-        type: Date,
-        required: true,
-        unique: true
+    lastName: {
+        type: String,
     },
     email: {
         type: String,
-        required: true,
         unique: true
     },
-    tel: {
+    phoneNum: {
         type: Number,
-        required: true,
-        unique: true
+    },
+    contactType: {
+        type: String,
     },
     message: {
         type: String,
-        required: false,
-        unique: true
     }
+}, {
+    timestamps: true
 });
 
 const Contact = mongoose.model('Contact', contactSchema);

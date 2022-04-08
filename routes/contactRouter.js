@@ -4,14 +4,15 @@ const authenticate = require('../authenticate');
 const contactRouter = express.Router();
 const cors = require('./cors');
 
+
 contactRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
-.get(cors.cors, (req, res, next) => {
+.get(cors.cors, authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
     Contact.find()
-        .then(contact => {
+        .then(contacts => {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
-            res.json(contact);
+            res.json(contacts);
         })
         .catch(err => next(err));
 })

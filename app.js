@@ -7,10 +7,11 @@ const config = require('./config');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const aboutRouter = require('./routes/aboutRouter');
+//const aboutRouter = require('./routes/aboutRouter');
 const eventsRouter = require('./routes/eventsRouter');
 const contactRouter = require('./routes/contactRouter');
 const unitsRouter = require('./routes/unitsRouter');
+const workshopsRouter = require('./routes/workshopsRouter');
 //const uploadRouter = require('./routes/uploadRouter');
 
 
@@ -56,9 +57,10 @@ app.use('/users', usersRouter);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/units', unitsRouter);
-app.use('/about', aboutRouter);
+//app.use('/about', aboutRouter);
 app.use('/events', eventsRouter);
 app.use('/contact', contactRouter);
+app.use('/workshops', workshopsRouter);
 //app.use('/imageUpload', uploadRouter);
 
 
