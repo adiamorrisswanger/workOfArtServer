@@ -12,6 +12,7 @@ const eventsRouter = require('./routes/eventsRouter');
 const contactRouter = require('./routes/contactRouter');
 const unitsRouter = require('./routes/unitsRouter');
 const workshopsRouter = require('./routes/workshopsRouter');
+const downloadsRouter = require('./routes/downloadsRouter');
 //const uploadRouter = require('./routes/uploadRouter');
 
 
@@ -61,6 +62,7 @@ app.use('/units', unitsRouter);
 app.use('/events', eventsRouter);
 app.use('/contact', contactRouter);
 app.use('/workshops', workshopsRouter);
+//app.use('/downloads', downloadsRouter);
 //app.use('/imageUpload', uploadRouter);
 
 
