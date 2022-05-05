@@ -62,7 +62,7 @@ app.use('/units', unitsRouter);
 app.use('/events', eventsRouter);
 app.use('/contact', contactRouter);
 app.use('/workshops', workshopsRouter);
-//app.use('/downloads', downloadsRouter);
+app.use('/downloads', downloadsRouter);
 //app.use('/imageUpload', uploadRouter);
 
 
