@@ -54,13 +54,14 @@ app.use(passport.initialize());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/contact', contactRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/units', unitsRouter);
 //app.use('/about', aboutRouter);
 app.use('/events', eventsRouter);
-app.use('/contact', contactRouter);
+
 app.use('/workshops', workshopsRouter);
 app.use('/downloads', downloadsRouter);
 //app.use('/imageUpload', uploadRouter);
