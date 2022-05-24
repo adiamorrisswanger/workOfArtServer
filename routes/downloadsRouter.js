@@ -5,7 +5,6 @@ const cors = require('./cors');
 
 downloadsRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
-//Maybe I want POST instead of GET to disable that automatic download...Doesnt seem to matter
 .get(cors.cors, (req, res, next) => {
    try {
        const file = `./public/files/WorkofArt2020Web.pdf`;
