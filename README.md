@@ -14,7 +14,7 @@
     <img src="./public/images/WoALogo-2020-SM.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Work of Art: Interactive</h3>
+<h3 align="center">REST API for Work of Art: Interactive</h3>
 
   <p align="center">
     API server for Work of Art: Interact React site created by Adia Morris Swanger and <a href="https://github.com/RachelNurmi91">Rachel Nurmi</a>.
@@ -46,7 +46,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]]()
+<!-- [![Product Name Screen Shot][product-screenshot]]() -->
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
