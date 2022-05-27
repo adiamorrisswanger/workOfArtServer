@@ -19,7 +19,7 @@ contactRouter.route('/')
 //Not sure why this is giving an error. Doesn't seem to be the headers, actually.
 .post(cors.corsWithOptions, (req, res, next) => {
     Contact.create(req.body)
-    then(contact => {
+    .then(contact => {
         console.log('Contact created', contact);
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
